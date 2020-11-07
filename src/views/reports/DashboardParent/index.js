@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import {
   Container,
@@ -5,12 +6,10 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-// import LatestOrders from './LatestOrders';
-// import LatestProducts from './LatestProducts';
-import Sales from './Sales';
-import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
+import VendorName from './VendorName';
+import MonthlySpent from './MonthlySpent';
+import CartRep from './CartRep';
+import Presence from './Presence';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +40,7 @@ const Dashboard = () => {
             xl={6}
             xs={12}
           >
-            <TotalProfit />
+            <MonthlySpent />
           </Grid>
           <Grid
             item
@@ -50,35 +49,26 @@ const Dashboard = () => {
             xl={6}
             xs={12}
           >
-            <TotalCustomers />
+            <VendorName />
           </Grid>
           <Grid
             item
             lg={8}
             md={12}
-            xl={9}
+            xl={8}
             xs={12}
           >
-            <Sales />
+            <CartRep />
           </Grid>
           <Grid
             item
             lg={4}
             md={12}
-            xl={3}
+            xl={4}
             xs={12}
           >
-            <TrafficByDevice />
+            <Presence />
           </Grid>
-          {/* <Grid
-            item
-            lg={12}
-            md={12}
-            xl={12}
-            xs={12}
-          >
-            <LatestOrders />
-          </Grid> */}
         </Grid>
       </Container>
     </Page>

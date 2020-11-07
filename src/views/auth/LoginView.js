@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -65,7 +66,7 @@ const LoginView = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
-                 <Typography
+                  <Typography
                     color="textPrimary"
                     variant="h1"
                   >

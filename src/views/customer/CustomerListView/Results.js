@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+// import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar,
@@ -100,13 +100,7 @@ const Results = ({ className, customers, ...rest }) => {
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
                   Phone
-                </TableCell>
-                <TableCell>
-                  Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -147,13 +141,7 @@ const Results = ({ className, customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>
                     {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
               ))}
