@@ -1,52 +1,47 @@
-const { admin } = require('firebase-admin/lib/credential');
-const functions = require('firebase-functions')
 const express = require('express')
 const bodyParser = require('body-parser')
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
-const firebase = require('firebase')
-const db = admin.firestore()
-var firebaseConfig = {
-    apiKey: "AIzaSyDc6od5tCOr3L8GwJ-nzWK5SfH8S9Wxo2U",
-    authDomain: "food-o-click.firebaseapp.com",
-    databaseURL: "https://food-o-click.firebaseio.com",
-    projectId: "food-o-click",
-    storageBucket: "food-o-click.appspot.com",
-    messagingSenderId: "216202521279",
-    appId: "1:216202521279:web:fc692ead78d312965ff40a",
-    measurementId: "G-PEHR6QTYRF"
-  };
-  // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-admin.initializeApp(functions.config().firebase);
+const { functions, firebase, admin } = require('../firebase-init.js')
+
+let db = admin.firestore()
 
 function signupParent(req, res) {
-    let newParent = {
-        parentName : req.body.parentName,
-        mobileNumber : req.body.mobileNumber,
-        email : req.body.email,
-        childName : req.body.childName,
-        password : req.body.password,
-        confirmPassword : req.body.confirmPassword
-    };
-    firebase.auth().createUserWithEmailAndPassword(newParent.email,newParent.password)
-    .then(data => {
-        db.collection('parents').add(newParent).
-        then(doc => {
-            res.json(`document craeted : ${doc.id}`);
-        }).catch(err => {
-            res.json('something went wrong!!');
-        });
-        return res.status(400).json({ status : true, message : 'user created successfully!!'});
-    })
-    .catch(err => {
-        return res.status(500).json({ error : err});
-    });
+    res.end()
 }
 
 function signupVendor(req, res) {
-    res.end()
+    let error="null";
+    let message="null";
+
+    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
+        .then(data => {
+            let newVendor = {
+                vendorName: req.body.vendorName,
+                mobileNumber: req.body.mobileNumber,
+                email: req.body.email,
+            };
+            db.collection('parents').add(newVendor).
+                then(doc => {
+                    err = false;
+                    message = 'user created successfully!!';
+                }).catch(err => {
+                    err = true;
+                    message = 'error ----- no';
+                });
+        })
+        .catch(err => {
+            err = true;
+            message = "auth error";
+        });
+    res.json({ status: error, message: message });
+    res.end();
 }
 
 exports.signupParent = signupParent
 exports.signupVendor = signupVendor
+
+// {
+//     "vendorName": "Developer",
+//     "mobileNumber" : "9328661966",
+//     "email" : "qwerty.dev2020@gmail.com",
+//     "password": "justdoit"
+// }

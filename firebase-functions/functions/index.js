@@ -1,25 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
-const firebase = require('firebase');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDc6od5tCOr3L8GwJ-nzWK5SfH8S9Wxo2U",
-  authDomain: "food-o-click.firebaseapp.com",
-  databaseURL: "https://food-o-click.firebaseio.com",
-  projectId: "food-o-click",
-  storageBucket: "food-o-click.appspot.com",
-  messagingSenderId: "216202521279",
-  appId: "1:216202521279:web:fc692ead78d312965ff40a",
-  measurementId: "G-PEHR6QTYRF"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-admin.initializeApp(functions.config().firebase)
+const { functions, firebase, admin } = require('./firebase-init.js')
 
 const { signupParent, signupVendor } = require('./util/signup.js')
-const { signinParent, signinVendor } = require('./util/signin.js')
+// const { signinParent, signinVendor } = require('./util/signin.js')
 
 
 const app = express()
@@ -30,17 +15,20 @@ app.use(bodyParser.json())
 
 let db = admin.firestore()
 
-app.get('/', (req, res) => {
-  res.json()
-  res.end()
-})
+app.post('/login', (req, res) => {
+  let error = "null";
+  firebase.auth().createUserWithEmailAndPassword('qwerty.dev2020@gmail.com', 'qwertDev2020')
+    .catch(err => error=err);
+  res.json({result: error});
+  res.end();
+});
 
-app.post('/signupParent', signupParent)
+// app.post('/signupParent', signupParent)
 app.post('/signupVendor', signupVendor)
 
-app.post('/signinParent', signinParent)
-app.post('/signinVendor', signinVendor)
+// app.post('/signinParent', signinParent)
+// app.post('/signinVendor', signinVendor)
 
-app.listen(port, console.log(`listening on port ${port}`))
+app.listen( console.log(`listening...`))
 
 exports.qwertyBack = functions.https.onRequest(app);
