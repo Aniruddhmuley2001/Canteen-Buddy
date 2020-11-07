@@ -1,6 +1,10 @@
+const functions = require('firebase-functions')
 const firebase = require('firebase');
+const admin = require('firebase-admin')
 
-var firebaseConfig = {
+admin.initializeApp(functions.config().firebase)
+
+let firebaseConfig = {
     apiKey: "AIzaSyDc6od5tCOr3L8GwJ-nzWK5SfH8S9Wxo2U",
     authDomain: "food-o-click.firebaseapp.com",
     databaseURL: "https://food-o-click.firebaseio.com",
@@ -13,5 +17,6 @@ var firebaseConfig = {
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var FbApp = firebase.initializeApp(firebaseConfig);
-module.exports.FBApp = FbApp;
+exports.functions = functions;
+exports.firebase = firebase;
+exports.admin = admin;
