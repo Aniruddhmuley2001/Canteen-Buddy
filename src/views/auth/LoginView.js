@@ -65,6 +65,12 @@ const LoginView = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
+                 <Typography
+                    color="textPrimary"
+                    variant="h1"
+                  >
+                    Canteen-Buddy
+                  </Typography>
                   <Typography
                     color="textPrimary"
                     variant="h2"
