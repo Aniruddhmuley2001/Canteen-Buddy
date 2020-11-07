@@ -13,6 +13,10 @@ import SettingsView from 'src/views/settings/SettingsView';
 
 const routes = [
   {
+    path: '',
+    element: <LoginView/>
+  },
+  {
     path: 'app',
     element: <DashboardLayout />,
     children: [
