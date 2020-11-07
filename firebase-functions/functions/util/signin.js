@@ -1,10 +1,55 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const { functions, firebase, admin } = require('../firebase-init.js')
 
 function signinParent(req, res) {
-    res.end()
+    var signup = {
+        error: false,
+    };
+
+    if (req.body.email != "" && req.body.password != "") {
+
+        firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
+            .then((user) => {
+                admin.firestore().collection('parents')
+                .doc(firebase.auth().currentUser.uid).get()
+                    .then(function (doc) {
+                        signup.error = doc
+                    }).catch(function (err) {
+                        signup.error = true;
+                    });
+            })
+            .catch(function (err) {
+                signup.error = { ec: err.code, msg: err.message };
+            });
+    }
+    res.json(signup);
+    res.end();
 }
 
 function signinVendor(req, res) {
-    res.end()
+    var signup = {
+        error: false,
+    };
+
+    if (req.body.email != "" && req.body.password != "") {
+
+        firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
+            .then((user) => {
+                admin.firestore().collection('vendors')
+                .doc(firebase.auth().currentUser.uid).get()
+                    .then(function (doc) {
+                        signup.error = doc
+                    }).catch(function (err) {
+                        signup.error = true;
+                    });
+            })
+            .catch(function (err) {
+                signup.error = { ec: err.code, msg: err.message };
+            });
+    }
+    res.json(signup);
+    res.end();
 }
 
 exports.signinParent = signinParent
