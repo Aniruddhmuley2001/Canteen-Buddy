@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
@@ -12,6 +13,10 @@ import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 
 const routes = [
+  {
+    path: '',
+    element: <LoginView />
+  },
   {
     path: 'app',
     element: <DashboardLayout />,
