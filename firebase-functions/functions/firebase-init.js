@@ -12,6 +12,3 @@ var firebaseConfig = {
   };
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-var FbApp = firebase.initializeApp(firebaseConfig);
-module.exports.FBApp = FbApp;

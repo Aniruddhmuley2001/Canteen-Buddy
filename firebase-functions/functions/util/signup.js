@@ -1,26 +1,11 @@
-const { admin } = require('firebase-admin/lib/credential');
-const functions = require('firebase-functions')
 const express = require('express')
 const bodyParser = require('body-parser')
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-const firebase = require('firebase')
-const db = admin.firestore()
-var firebaseConfig = {
-    apiKey: "AIzaSyDc6od5tCOr3L8GwJ-nzWK5SfH8S9Wxo2U",
-    authDomain: "food-o-click.firebaseapp.com",
-    databaseURL: "https://food-o-click.firebaseio.com",
-    projectId: "food-o-click",
-    storageBucket: "food-o-click.appspot.com",
-    messagingSenderId: "216202521279",
-    appId: "1:216202521279:web:fc692ead78d312965ff40a",
-    measurementId: "G-PEHR6QTYRF"
-  };
-  // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
+require('../firebase-init')
 
-function signupParent(req, res) {
+/*function signupParent(req, res) {
     let newParent = {
         parentName : req.body.parentName,
         mobileNumber : req.body.mobileNumber,
@@ -29,10 +14,16 @@ function signupParent(req, res) {
         password : req.body.password,
         confirmPassword : req.body.confirmPassword
     };
+    let newParentCollection = {
+        parentName : req.body.parentName,
+        mobileNumber : req.body.mobileNumber,
+        email : req.body.email,
+        childName : req.body.childName,
+    };
     firebase.auth().createUserWithEmailAndPassword(newParent.email,newParent.password)
     .then(data => {
-        db.collection('parents').add(newParent).
-        then(doc => {
+        db.collection('parents').add(newParentCollection)
+        .then(doc => {
             res.json(`document craeted : ${doc.id}`);
         }).catch(err => {
             res.json('something went wrong!!');
@@ -42,11 +33,22 @@ function signupParent(req, res) {
     .catch(err => {
         return res.status(500).json({ error : err});
     });
-}
+}*/
 
 function signupVendor(req, res) {
-    res.end()
+    let newVendor = {
+        vendorName : req.body.vendorName,
+        email : req.body.email,
+        mobileNumber : req.body.mobileNumber
+    }
+    admin.firestore().collection('vendors').add(newVendor)
+    .then(doc => {
+        res.status(400).json(`User ${doc.id} : ${doc.vendorName} creadted successfully!!`);
+    })
+    .catch(err => {
+        res.status(500).json(`Something went wrong!!`);
+    })
 }
 
-exports.signupParent = signupParent
+//exports.signupParent = signupParent
 exports.signupVendor = signupVendor
