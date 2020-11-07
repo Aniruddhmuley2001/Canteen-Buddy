@@ -1,4 +1,3 @@
-const functions = require('firebase-functions')
 
 function signinParent(req, res) {
     res.end()
