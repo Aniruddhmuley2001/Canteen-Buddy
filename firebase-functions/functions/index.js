@@ -2,8 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const { functions, firebase, admin } = require('./firebase-init.js')
-
 const { signupParent, signupVendor } = require('./util/signup.js')
+const { transaction } = require('./util/transaction.js')
 // const { signinParent, signinVendor } = require('./util/signin.js')
 
 
@@ -28,6 +28,8 @@ app.post('/signupVendor', signupVendor)
 
 // app.post('/signinParent', signinParent)
 // app.post('/signinVendor', signinVendor)
+
+app.post('/transaction', transaction)
 
 app.listen( console.log(`listening...`))
 
