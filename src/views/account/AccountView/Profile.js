@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import moment from 'moment';
+// import moment from 'moment';
 import {
   Avatar,
   Box,
-  Button,
+  // Button,
   Card,
-  CardActions,
+  // CardActions,
   CardContent,
   Divider,
   Typography,
@@ -49,6 +49,7 @@ const Profile = ({ className, ...rest }) => {
             className={classes.avatar}
             src={user.avatar}
           />
+          <br />
           <Typography
             color="textPrimary"
             gutterBottom
@@ -56,7 +57,7 @@ const Profile = ({ className, ...rest }) => {
           >
             {user.name}
           </Typography>
-          <Typography
+          {/* <Typography
             color="textSecondary"
             variant="body1"
           >
@@ -68,11 +69,11 @@ const Profile = ({ className, ...rest }) => {
             variant="body1"
           >
             {`${moment().format('hh:mm A')} ${user.timezone}`}
-          </Typography>
+          </Typography> */}
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
+      {/* <CardActions>
         <Button
           color="primary"
           fullWidth
@@ -80,7 +81,7 @@ const Profile = ({ className, ...rest }) => {
         >
           Upload picture
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

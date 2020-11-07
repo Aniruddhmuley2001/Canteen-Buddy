@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   Grid,
@@ -10,6 +11,7 @@ import {
   makeStyles,
   colors
 } from '@material-ui/core';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const useStyles = makeStyles(() => ({
@@ -58,6 +60,25 @@ const TotalProfit = ({ className, ...rest }) => {
             </Avatar>
           </Grid>
         </Grid>
+        <Box
+          mt={2}
+          display="flex"
+          alignItems="center"
+        >
+          <ArrowUpwardIcon className={classes.differenceIcon} />
+          <Typography
+            className={classes.differenceValue}
+            variant="body2"
+          >
+            20%
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="caption"
+          >
+            Since last month
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   );
