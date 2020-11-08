@@ -1,7 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const { functions, firebase, admin } = require('../firebase-init.js');
-const { error } = require('firebase-functions/lib/logger');
+
+function signout(req, res) {
+    var signout = {
+        error: false,
+    };
+
+    firebase.auth().signOut().catch( err => error=true );
+    signout.user = firebase.auth().currentUser;
+    res.json(signout);
+    res.end();
+}
 
 function signupParent(req, res) {
     let signup = {
@@ -11,7 +21,7 @@ function signupParent(req, res) {
     if (req.body.email != "" && req.body.password != "" && req.body.password == req.body.confirmPassword) {
 
         firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
-            .then(user => {
+            .then(function (user) {
                 let newParent = {
                     parentName: req.body.parentName,
                     childName: req.body.childName,
@@ -30,6 +40,7 @@ function signupParent(req, res) {
                 signup.error = { ec: err.code, msg: err.message };
             });
     }
+    signup.user = firebase.auth().currentUser;
     res.json(signup);
     res.end();
 }
@@ -57,11 +68,12 @@ function signupVendor(req, res) {
                 signup.error = { ec: err.code, msg: err.message };
             });
     }
+    signup.user = firebase.auth().currentUser;
     res.json(signup);
     res.end();
 }
 
-
+exports.signout = signout
 exports.signupParent = signupParent
 exports.signupVendor = signupVendor
 

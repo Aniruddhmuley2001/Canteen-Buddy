@@ -72,6 +72,40 @@ const RegisterView = () => {
               })
             }
             onSubmit={(values) => {
+              (values.isVendor === 1) ?
+              {
+                vSetting = {
+                  method: "POST",
+                  headers: { 'Content-Type': 'application/json' },
+                  vendorName: values.name,
+                  phoneNumber: values.pn,
+                  email: values.emial,
+                  password: values.password,
+                  confirmPassword: values.confirmPassword,
+                }
+                 axios.post('/url', vSetting)
+                 .then(res => {
+                   console.log('res :',res);
+                 })
+                 .catch(err => console.log(err))
+              } :
+              {
+                pSetting = {
+                  method: "POST",
+                  headers: { 'Content-Type': 'application/json' },
+                  parentName: values.name,
+                  childName: values.child,
+                  phoneNumber: values.pn,
+                  email: values.emial,
+                  password: values.password,
+                  confirmPassword: values.confirmPassword,
+                }
+                 axios.post('/url', pSetting)
+                 .then(res => {
+                   console.log('res :',res);
+                 })
+                 .catch(err => console.log(err))
+              }
               // eslint-disable-next-line no-unused-expressions
               (values.isVendor === 1) ? navigate('/app/dashboard', { replace: true }) : navigate('/app/1/dashboard', { replace: true });
             }}
@@ -85,82 +119,82 @@ const RegisterView = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
-                <Box mb={3}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
-                    Create new account
+                <form onSubmit={handleSubmit}>
+                  <Box mb={3}>
+                    <Typography
+                      color="textPrimary"
+                      variant="h2"
+                    >
+                      Create new account
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="body2"
-                  >
-                    Use your email to create new account
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      variant="body2"
+                    >
+                      Use your email to create new account
                   </Typography>
-                </Box>
-                <TextField
-                  error={Boolean(touched.name && errors.name)}
-                  fullWidth
-                  helperText={touched.name && errors.name}
-                  label="Name"
-                  margin="normal"
-                  name="name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.name}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.phone && errors.phone)}
-                  fullWidth
-                  helperText={touched.phone && errors.phone}
-                  label="Phone number"
-                  margin="normal"
-                  name="phone"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="number"
-                  value={values.phone}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.password && errors.password)}
-                  fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.password}
-                  variant="outlined"
-                />
-                <br />
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Register as</FormLabel>
-                  <RadioGroup aria-label="category" name="category1" value={value} onChange={handleChanges}>
-                    <FormControlLabel value="vendor" control={<Radio />} label="Vendor" onClick={() => { values.isVendor = 1; values.isParent = 0; }} />
-                    <FormControlLabel value="parent" control={<Radio />} label="Parent" onClick={() => { values.isVendor = 0; values.isParent = 1; }} />
-                  </RadioGroup>
-                </FormControl>
-                {/* <Typography
+                  </Box>
+                  <TextField
+                    error={Boolean(touched.name && errors.name)}
+                    fullWidth
+                    helperText={touched.name && errors.name}
+                    label="Name"
+                    margin="normal"
+                    name="name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.name}
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={Boolean(touched.phone && errors.phone)}
+                    fullWidth
+                    helperText={touched.phone && errors.phone}
+                    label="Phone number"
+                    margin="normal"
+                    name="phone"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="number"
+                    value={values.phone}
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={Boolean(touched.email && errors.email)}
+                    fullWidth
+                    helperText={touched.email && errors.email}
+                    label="Email Address"
+                    margin="normal"
+                    name="email"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="email"
+                    value={values.email}
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={Boolean(touched.password && errors.password)}
+                    fullWidth
+                    helperText={touched.password && errors.password}
+                    label="Password"
+                    margin="normal"
+                    name="password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="password"
+                    value={values.password}
+                    variant="outlined"
+                  />
+                  <br />
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Register as</FormLabel>
+                    <RadioGroup aria-label="category" name="category1" value={value} onChange={handleChanges}>
+                      <FormControlLabel value="vendor" control={<Radio />} label="Vendor" onClick={() => { values.isVendor = 1; values.isParent = 0; }} />
+                      <FormControlLabel value="parent" control={<Radio />} label="Parent" onClick={() => { values.isVendor = 0; values.isParent = 1; }} />
+                    </RadioGroup>
+                  </FormControl>
+                  {/* <Typography
                   color="textSecondary"
                   variant="body1"
                 >
@@ -194,66 +228,66 @@ const RegisterView = () => {
                     Parent
                   </Typography>
                 </Box> */}
-                <Box
-                  alignItems="center"
-                  display="flex"
-                  ml={-1}
-                >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
+                  <Box
+                    alignItems="center"
+                    display="flex"
+                    ml={-1}
+                  >
+                    <Checkbox
+                      checked={values.policy}
+                      name="policy"
+                      onChange={handleChange}
+                    />
+                    <Typography
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      I have read the
+                    {' '}
+                      <Link
+                        color="primary"
+                        component={RouterLink}
+                        to="#"
+                        underline="always"
+                        variant="h6"
+                      >
+                        Terms and Conditions
+                    </Link>
+                    </Typography>
+                  </Box>
+                  {Boolean(touched.policy && errors.policy) && (
+                    <FormHelperText error>
+                      {errors.policy}
+                    </FormHelperText>
+                  )}
+                  <Box my={2}>
+                    <Button
+                      color="primary"
+                      disabled={isSubmitting}
+                      fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                    >
+                      Sign up now
+                  </Button>
+                  </Box>
                   <Typography
                     color="textSecondary"
                     variant="body1"
                   >
-                    I have read the
-                    {' '}
+                    Have an account?
+                  {' '}
                     <Link
-                      color="primary"
                       component={RouterLink}
-                      to="#"
-                      underline="always"
+                      to="/login"
                       variant="h6"
                     >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box>
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
-                <Box my={2}>
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                  >
-                    Sign up now
-                  </Button>
-                </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
-                    Sign in
+                      Sign in
                   </Link>
-                </Typography>
-              </form>
-            )}
+                  </Typography>
+                </form>
+              )}
           </Formik>
         </Container>
       </Box>

@@ -1,8 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const { functions, firebase, admin } = require('./firebase-init.js')
-const { signupParent, signupVendor } = require('./util/signup.js')
+const { signupParent, signupVendor, signout } = require('./util/signup.js')
 const { transaction } = require('./util/transaction.js')
 const { signinParent, signinVendor } = require('./util/signin.js')
 const { myTransactions } = require('./util/myTransactions')
@@ -11,6 +12,7 @@ const { myTransactions } = require('./util/myTransactions')
 const app = express()
 const port = 3031
 
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -23,6 +25,8 @@ app.post('/login', (req, res) => {
   res.json({result: error});
   res.end();
 });
+
+app.post('/signout', signout)
 
 app.post('/signupParent', signupParent)
 app.post('/signupVendor', signupVendor)

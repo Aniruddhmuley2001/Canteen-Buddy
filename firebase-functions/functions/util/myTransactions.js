@@ -4,21 +4,23 @@ const { functions, firebase, admin } = require('../firebase-init.js')
 let db = admin.firestore()
 
 function myTransactions(req, res) {
-    let error = "null";
-    let message = "null"
+    let status = {
+        error: false,
+        message: "null"
+    };
     if (firebase.auth().currentUser != null) {
-        db.collection('transactions').get()
+         db.collection('transactions')
             .orderBy('postedAt', 'desc')
             .get()
             .then((data) => {
-                let myTransactions = []
                 let total = 0
                 data.forEach((doc) => {
                     if (doc.data().parentID == firebase.auth().currentUser.uid || doc.data().vendorID == firebase.auth().currentUser.uid) {
                         total = total + doc.amount;
-                        myTransactions.push(doc);
+                        status.myTransactions.push(doc);
                     }
                 });
+
             })
             .catch(err => console.error(err));
     }
