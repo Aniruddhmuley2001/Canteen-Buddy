@@ -11,10 +11,14 @@ function signinParent(req, res) {
 
         firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
             .then((user) => {
-                admin.firestore().collection('parents')
-                .doc(firebase.auth().currentUser.uid).get()
-                    .then(function (doc) {
-                        signup.error = doc
+                admin.firestore().collection('transaction').get()
+                    .then(function (data) {
+                        data.forEach(doc => {
+                            if (doc.parentID == firebase.auth().currentUser.uid)
+                            {
+                                signup.data.push(doc);
+                            }
+                        })
                     }).catch(function (err) {
                         signup.error = true;
                     });
