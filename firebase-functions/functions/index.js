@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const { functions, firebase, admin } = require('./firebase-init.js')
 const { signupParent, signupVendor } = require('./util/signup.js')
 const { transaction } = require('./util/transaction.js')
-// const { signinParent, signinVendor } = require('./util/signin.js')
+const { signinParent, signinVendor } = require('./util/signin.js')
 
 
 const app = express()
@@ -23,11 +23,11 @@ app.post('/login', (req, res) => {
   res.end();
 });
 
-// app.post('/signupParent', signupParent)
+app.post('/signupParent', signupParent)
 app.post('/signupVendor', signupVendor)
 
-// app.post('/signinParent', signinParent)
-// app.post('/signinVendor', signinVendor)
+app.post('/signinParent', signinParent)
+app.post('/signinVendor', signinVendor)
 
 app.post('/transaction', transaction)
 
