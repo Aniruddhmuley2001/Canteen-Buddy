@@ -4,6 +4,7 @@
   "licence": "MIT",
   "version": "1.0.0",
   "private": false,
+  "proxy": "https://us-central1-food-o-click.cloudfunctions.net/qwertyBack/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -30,8 +31,10 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "^4.10.0",
+    "axios": "^0.21.0",
     "chart.js": "^2.9.3",
     "clsx": "^1.1.1",
+    "cors": "^2.8.5",
     "formik": "^2.1.5",
     "history": "^5.0.0",
     "lodash": "^4.17.19",
