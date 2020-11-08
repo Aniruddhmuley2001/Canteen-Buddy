@@ -8,7 +8,7 @@ function signupParent(req, res) {
         error: false,
     };
 
-    if (req.body.email != "" && req.body.password != "" && req.body.password == req.body.conformPassword) {
+    if (req.body.email != "" && req.body.password != "" && req.body.password == req.body.confirmPassword) {
 
         firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
             .then(user => {
@@ -39,7 +39,7 @@ function signupVendor(req, res) {
         error: false,
     };
 
-    if (req.body.email != "" && req.body.password != "" && req.body.password == req.body.conformPassword) {
+    if (req.body.email != "" && req.body.password != "" && req.body.password == req.body.confirmPassword) {
 
         firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).then((user) => {
             let newVendor = {
@@ -78,7 +78,7 @@ exports.signupVendor = signupVendor
 //     "mobileNumber" : "9328661966",
 //     "email" : "qwerty.dev2020@gmail.com",
 //     "password": "justdoit",
-//     "conformPassword": "justdoit"
+//     "confirmPassword": "justdoit"
 // }
 
 // {

@@ -31,7 +31,7 @@ function myTransactions(req, res) {
             message = 'you need to signin first!!'
         }
     });
-    res.json({ status: error, message: message });
+    res.json({ status: error, message: message, user : firebase.auth().currentUser });
     res.end();
 }
 
