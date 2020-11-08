@@ -5,6 +5,7 @@ const { functions, firebase, admin } = require('./firebase-init.js')
 const { signupParent, signupVendor } = require('./util/signup.js')
 const { transaction } = require('./util/transaction.js')
 const { signinParent, signinVendor } = require('./util/signin.js')
+const { myTransactions } = require('./util/myTransactions')
 
 
 const app = express()
@@ -30,6 +31,7 @@ app.post('/signinParent', signinParent)
 app.post('/signinVendor', signinVendor)
 
 app.post('/transaction', transaction)
+app.get('/myTransactions', myTransactions)
 
 app.listen( console.log(`listening...`))
 
