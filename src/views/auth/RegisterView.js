@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -19,6 +20,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,41 +73,41 @@ const RegisterView = () => {
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={(values) => {
-              (values.isVendor === 1) ?
-              {
-                vSetting = {
-                  method: "POST",
+
+            onSubmit={function (values) {
+              if (values.isVendor === 1) {
+                const vSetting = {
+                  method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   vendorName: values.name,
-                  phoneNumber: values.pn,
-                  email: values.emial,
+                  mobileNumber: values.phone,
+                  email: values.email,
                   password: values.password,
-                  confirmPassword: values.confirmPassword,
-                }
-                 axios.post('/url', vSetting)
-                 .then(res => {
-                   console.log('res :',res);
-                 })
-                 .catch(err => console.log(err))
-              } :
-              {
-                pSetting = {
-                  method: "POST",
+                  confirmPassword: values.password,
+                };
+                axios.post('https://us-central1-food-o-click.cloudfunctions.net/qwertyBack/signupVendor', vSetting)
+                  .then((res) => {
+                    console.log('res :', res);
+                  })
+                  .catch((err) => console.log(err));
+              } else {
+                const pSetting = {
+                  method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   parentName: values.name,
-                  childName: values.child,
-                  phoneNumber: values.pn,
-                  email: values.emial,
+                  childName: values.name,
+                  mobileNumber: values.phone,
+                  email: values.email,
                   password: values.password,
-                  confirmPassword: values.confirmPassword,
-                }
-                 axios.post('/url', pSetting)
-                 .then(res => {
-                   console.log('res :',res);
-                 })
-                 .catch(err => console.log(err))
+                  confirmPassword: values.password,
+                };
+                axios.post('https://us-central1-food-o-click.cloudfunctions.net/qwertyBack/signupParent', pSetting)
+                  .then((res) => {
+                    console.log('res :', res);
+                  })
+                  .catch((err) => console.log(err));
               }
+
               // eslint-disable-next-line no-unused-expressions
               (values.isVendor === 1) ? navigate('/app/dashboard', { replace: true }) : navigate('/app/1/dashboard', { replace: true });
             }}
