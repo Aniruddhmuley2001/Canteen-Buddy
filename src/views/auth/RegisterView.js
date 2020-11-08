@@ -9,11 +9,16 @@ import {
   Container,
   FormHelperText,
   Link,
+  Radio,
   TextField,
   Typography,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [value, setValue] = React.useState('Vendor');
+
+  const handleChanges = (event) => {
+    setValue(event.target.value);
+  };
 
   return (
     <Page
@@ -43,22 +53,27 @@ const RegisterView = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
-              lastName: '',
+              name: '',
+              phone: '',
               password: '',
+              isVendor: 0,
+              isParent: 0,
               policy: false
             }}
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
+                name: Yup.string().max(255).required('Name is required'),
+                phone: Yup.string().max(10).required('Phone Number is required'),
                 password: Yup.string().max(255).required('password is required'),
+                // isVendor: Yup.boolean().oneOf([true], 'This field must be checked'),
+                // isParent: Yup.boolean().oneOf([true], 'This field must be checked'),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              // eslint-disable-next-line no-unused-expressions
+              (values.isVendor === 1) ? navigate('/app/dashboard', { replace: true }) : navigate('/app/1/dashboard', { replace: true });
             }}
           >
             {({
@@ -87,27 +102,28 @@ const RegisterView = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.name && errors.name)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.name && errors.name}
+                  label="Name"
                   margin="normal"
-                  name="firstName"
+                  name="name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.name}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
+                  error={Boolean(touched.phone && errors.phone)}
                   fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
+                  helperText={touched.phone && errors.phone}
+                  label="Phone number"
                   margin="normal"
-                  name="lastName"
+                  name="phone"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
+                  type="number"
+                  value={values.phone}
                   variant="outlined"
                 />
                 <TextField
@@ -136,6 +152,48 @@ const RegisterView = () => {
                   value={values.password}
                   variant="outlined"
                 />
+                <br />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Register as</FormLabel>
+                  <RadioGroup aria-label="category" name="category1" value={value} onChange={handleChanges}>
+                    <FormControlLabel value="vendor" control={<Radio />} label="Vendor" onClick={() => { values.isVendor = 1; values.isParent = 0; }} />
+                    <FormControlLabel value="parent" control={<Radio />} label="Parent" onClick={() => { values.isVendor = 0; values.isParent = 1; }} />
+                  </RadioGroup>
+                </FormControl>
+                {/* <Typography
+                  color="textSecondary"
+                  variant="body1"
+                >
+                  Register as
+                </Typography>
+                <Box
+                  alignItems="center"
+                  display="flex"
+                  ml={-1}
+                >
+                  <Radio
+                    checked={values.isVendor}
+                    name="isVendor"
+                    onChange={handleChange}
+                  />
+                  <Typography
+                    color="textSecondary"
+                    variant="body1"
+                  >
+                    Vendor
+                  </Typography>
+                  <Radio
+                    checked={values.isParent}
+                    name="isParent"
+                    onChange={handleChange}
+                  />
+                  <Typography
+                    color="textSecondary"
+                    variant="body1"
+                  >
+                    Parent
+                  </Typography>
+                </Box> */}
                 <Box
                   alignItems="center"
                   display="flex"
