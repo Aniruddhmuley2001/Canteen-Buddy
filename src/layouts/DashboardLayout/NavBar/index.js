@@ -25,7 +25,7 @@ import {
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
+  avatar: '/static/images/avatars/user.png',
   name: 'Katarina Smith'
 };
 
@@ -35,11 +35,6 @@ const items = [
     icon: BarChartIcon,
     title: 'Dashboard'
   },
-  // {
-  //   href: '/app/customers',
-  //   icon: UsersIcon,
-  //   title: 'Customers'
-  // },
   {
     href: '/app/account',
     icon: UserIcon,

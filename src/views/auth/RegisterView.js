@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -128,14 +130,14 @@ const RegisterView = () => {
                       variant="h2"
                     >
                       Create new account
-                  </Typography>
+                    </Typography>
                     <Typography
                       color="textSecondary"
                       gutterBottom
                       variant="body2"
                     >
                       Use your email to create new account
-                  </Typography>
+                    </Typography>
                   </Box>
                   <TextField
                     error={Boolean(touched.name && errors.name)}
@@ -254,7 +256,7 @@ const RegisterView = () => {
                         variant="h6"
                       >
                         Terms and Conditions
-                    </Link>
+                      </Link>
                     </Typography>
                   </Box>
                   {Boolean(touched.policy && errors.policy) && (
@@ -272,7 +274,7 @@ const RegisterView = () => {
                       variant="contained"
                     >
                       Sign up now
-                  </Button>
+                    </Button>
                   </Box>
                   <Typography
                     color="textSecondary"
@@ -286,10 +288,10 @@ const RegisterView = () => {
                       variant="h6"
                     >
                       Sign in
-                  </Link>
+                    </Link>
                   </Typography>
                 </form>
-              )}
+            )}
           </Formik>
         </Container>
       </Box>
