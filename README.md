@@ -1,3 +1,3 @@
-To run the project run:
-npm install
-npm start
+To run the project run: <br/>
+npm install <br />
+npm start <br />
