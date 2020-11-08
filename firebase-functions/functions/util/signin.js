@@ -14,6 +14,7 @@ function signinParent(req, res) {
                 signin.error = { ec: err.code, msg: err.message };
             });
     }
+    signin.user = firebase.auth().currentUser;
     res.json(signin);
     res.end();
 }
@@ -30,6 +31,7 @@ function signinVendor(req, res) {
                 signin.error = { ec: err.code, msg: err.message };
             });
     }
+    signin.user = firebase.auth().currentUser;
     res.json(signin);
     res.end();
 }
