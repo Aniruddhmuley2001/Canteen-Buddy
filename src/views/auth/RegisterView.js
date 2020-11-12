@@ -105,13 +105,15 @@ const RegisterView = () => {
                 };
                 axios.post('https://us-central1-food-o-click.cloudfunctions.net/qwertyBack/signupParent', pSetting)
                   .then((res) => {
-                    console.log('res :', res);
+                    console.log('res :', res);                    
+                    if (values.isVendor == 1) navigate('/app/dashboard', { replace: true });
+                    else navigate('/app/1/dashboard', { replace: true });                    
                   })
-                  .catch((err) => console.log(err));
+                  .catch((err) => console.log(err, "no redirect"));
               }
 
               // eslint-disable-next-line no-unused-expressions
-              (values.isVendor === 1) ? navigate('/app/dashboard', { replace: true }) : navigate('/app/1/dashboard', { replace: true });
+              // (values.isVendor === 1) ? navigate('/app/dashboard', { replace: true }) : navigate('/app/1/dashboard', { replace: true });
             }}
           >
             {({
