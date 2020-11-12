@@ -91,7 +91,7 @@ const RegisterView = () => {
                   .then((res) => {
                     console.log('res :', res);
                   })
-                  .catch((err) => console.log(err));
+                  .catch((err) => console.log("error: -- ", err));
               } else {
                 const pSetting = {
                   method: 'POST',
