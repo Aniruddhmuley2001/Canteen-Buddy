@@ -10,13 +10,25 @@ function signinParent(req, res) {
     if (req.body.email != "" && req.body.password != "") {
 
         firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
+            .then(() => {
+                signin.user = firebase.auth().currentUser != null ? true : false;
+                return admin.firestore().collection('parents').get();
+            })
+            .then((docs) => {
+                docs.forEach(doc => {
+                    if (doc.data().email == firebase.auth().currentUser.email) {
+                        signin.details = doc.data();
+                    }
+                });
+                res.json(signin);
+                res.end();
+            })
             .catch(function (err) {
                 signin.error = { ec: err.code, msg: err.message };
+                res.json(signin);
+                res.end();
             });
     }
-    signin.user = firebase.auth().currentUser;
-    res.json(signin);
-    res.end();
 }
 
 function signinVendor(req, res) {
@@ -27,13 +39,25 @@ function signinVendor(req, res) {
     if (req.body.email != "" && req.body.password != "") {
 
         firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
+            .then(() => {
+                signin.user = firebase.auth().currentUser != null ? true : false;
+                return admin.firestore().collection('vendors').get();
+            })
+            .then((docs) => {
+                docs.forEach(doc => {
+                    if (doc.data().email == firebase.auth().currentUser.email) {
+                        signin.details = doc.data();
+                    }
+                });
+                res.json(signin);
+                res.end();
+            })
             .catch(function (err) {
                 signin.error = { ec: err.code, msg: err.message };
+                res.json(signin);
+                res.end();
             });
     }
-    signin.user = firebase.auth().currentUser;
-    res.json(signin);
-    res.end();
 }
 
 exports.signinParent = signinParent
